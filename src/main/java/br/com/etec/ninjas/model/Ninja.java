@@ -13,10 +13,10 @@ import jakarta.persistence.Table;
  */
 @Entity // Define que esta classe é uma entidade gerenciada pelo JPA e será mapeada como uma tabela.
 @Table(name = "ninja") // Especifica o nome exato da tabela no banco de dados.
-public class Ninjas {
+public class Ninja {
     
     @Id // Define o atributo abaixo como a Chave Primária (Primary Key) da tabela.
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Configura o ID como auto-incremento (gerado automaticamente pelo banco de dados).
+    @GeneratedValue(strategy = GenerationType.AUTO) // Configura o ID como auto-incremento (gerado automaticamente pelo banco de dados).
     @Column(name = "id_ninja") // Mapeia o nome da coluna de ID no banco de dados.
     private Long id_ninja; 
 
@@ -37,14 +37,14 @@ public class Ninjas {
      * Construtor padrão (vazio). 
      * Obrigatório para o funcionamento do Hibernate/JPA para instanciar o objeto ao buscar no banco.
      */
-    public Ninjas() {
+    public Ninja() {
     }
 
     /**
      * Construtor personalizado para criação de novos objetos com dados iniciais.
      * O ID não entra aqui pois é gerado automaticamente pelo banco de dados.
      */
-    public Ninjas(String nome, String cpf, String email) {
+    public Ninja(String nome, String cpf, String email) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
