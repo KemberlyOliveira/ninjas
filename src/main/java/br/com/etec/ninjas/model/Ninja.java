@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 /**
  * Classe que representa a entidade "Ninjas" no sistema e a tabela "ninja" no Banco de Dados.
@@ -13,6 +14,7 @@ import jakarta.persistence.Table;
  */
 @Entity // Define que esta classe é uma entidade gerenciada pelo JPA e será mapeada como uma tabela.
 @Table(name = "ninja") // Especifica o nome exato da tabela no banco de dados.
+@Data //  É a junção de @ToString, @EqualsAndHashCode, @Getter, @Setter e @RequiredArgsConstructor (cria construtor para campos final).
 public class Ninja {
     
     @Id // Define o atributo abaixo como a Chave Primária (Primary Key) da tabela.
@@ -29,61 +31,4 @@ public class Ninja {
     @Column(name = "email_ninja", nullable = false, unique = true) // Campo obrigatório e único.
     private String email;
 
-    // =========================================================================
-    // CONSTRUTORES
-    // =========================================================================
-
-    /**
-     * Construtor padrão (vazio). 
-     * Obrigatório para o funcionamento do Hibernate/JPA para instanciar o objeto ao buscar no banco.
-     */
-    public Ninja() {
-    }
-
-    /**
-     * Construtor personalizado para criação de novos objetos com dados iniciais.
-     * O ID não entra aqui pois é gerado automaticamente pelo banco de dados.
-     */
-    public Ninja(String nome, String cpf, String email) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-    }
-
-    // =========================================================================
-    // MÉTODOS GETTERS E SETTERS
-    // (Necessários para que o JPA consiga ler e injetar os dados nos atributos)
-    // =========================================================================
-
-    public Long getId_ninja() {
-        return id_ninja;
-    }
-
-    public void setId_ninja(Long id_ninja) {
-        this.id_ninja = id_ninja;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
