@@ -16,4 +16,4 @@ public class NinjasApplication {
 // mvn spring-boot:run         para iniciar o codigo via terminal
 // mvn clean install -U        coloca no terminal depois de botar uma dependencia
 
-//   lombok Service
+// controller
