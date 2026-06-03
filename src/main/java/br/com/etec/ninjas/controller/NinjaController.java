@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.etec.ninjas.model.Ninja;
 import br.com.etec.ninjas.service.NinjaService;
+import jakarta.validation.Valid;
 
 /**
  * Controller responsável por receber as requisições HTTP relacionadas a Ninjas.
@@ -40,7 +41,7 @@ public class NinjaController {
      * Retorno     : objeto Ninja salvo, serializado em JSON
      */
     @PostMapping // Mapeia requisições HTTP POST para este método
-    public Ninja cadastrarNinja(@RequestBody Ninja ninja) {
+    public Ninja cadastrarNinja(@Valid @RequestBody Ninja ninja) {
         // @RequestBody: o Spring lê o JSON do corpo da requisição
         // e converte automaticamente para um objeto do tipo Ninja (desserialização)
 
