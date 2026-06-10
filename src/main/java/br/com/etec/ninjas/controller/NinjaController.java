@@ -1,6 +1,9 @@
 package br.com.etec.ninjas.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,4 +52,21 @@ public class NinjaController {
         // O Controller não deve conter regras — só receber e responder
         return ninjaService.cadastrarNinja(ninja);
     }
+
+/**
+ * Endpoint para listar todos os Ninjas cadastrados.
+ *
+ * Método HTTP : GET
+ * URL         : /ninjas
+ * Corpo       : nenhum (GET não envia corpo)
+ * Retorno     : lista de Ninjas em JSON
+ */
+@GetMapping // Mapeia requisições HTTP GET para este método.
+            // GET = "me dá uma informação" — usado para BUSCAR dados, nunca para criar ou editar.
+public List<Ninja> listaNinjas() {
+
+    // Delega para a Service, que por sua vez chama o Repository.
+    // O Controller continua sem regra de negócio — só recebe e responde.
+    return ninjaService.listarNinjas();
+}
 }

@@ -1,5 +1,7 @@
 package br.com.etec.ninjas.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +32,24 @@ public class NinjaService {
         // (ninja)           == O argumento: estamos passando o ninja que recebemos lá em cima para dentro da função .save().
         return ninjaRepository.save(ninja);
     }
+
+
+// public       == Qualquer classe do projeto pode chamar este método.
+// List<Ninja>  == O método não devolve um único Ninja, mas uma LISTA de Ninjas.
+//                 List é uma coleção ordenada do Java — como uma fileira de objetos.
+//                 <Ninja> indica o tipo de elemento dentro da lista (só Ninjas aqui).
+// listarNinjas == Nome do método: descreve bem o que ele faz — listar todos os ninjas.
+// ()           == Sem parâmetros: não precisa receber nada para funcionar,
+//                 pois a busca é geral (traz TODOS os registros).
+public List<Ninja> listarNinjas() {
+
+    // return                == Devolve o resultado para quem chamou o método.
+    // ninjaRepository       == Objeto injetado pelo Spring com acesso ao banco de dados.
+    // .findAll()            == Método herdado da interface JpaRepository.
+    //                          Por baixo dos panos, o Spring gera automaticamente:
+    //                          SELECT * FROM ninjas
+    //                          Você não precisa escrever SQL — o JPA faz isso por você.
+    return ninjaRepository.findAll();
+}
 
 }
