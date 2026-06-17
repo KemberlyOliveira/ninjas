@@ -30,7 +30,7 @@ public class Ninja {
     private Long id_ninja; 
 
     @NotBlank(message = "Nome é obrigatorio.")
-    @Size(min = 3, max = 255, message = "Nome deve yer entre 3 e 255 caracteres.")
+    @Size(min = 3, max = 255, message = "Nome deve ter entre 3 e 255 caracteres.")
     @Column(name = "nome_ninja", nullable = false) // Mapeia a coluna; 'nullable = false' torna o campo obrigatório (NOT NULL).
     private String nome;
 
