@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +33,8 @@ public class NinjaController {
      */
     @Autowired
     private NinjaService ninjaService;
+
+    // o Mapping siginifica que mapeia antes de executar
 
     /**
      * Endpoint para cadastrar um novo Ninja.
@@ -72,16 +76,65 @@ public List<Ninja> listaNinjas() {
     return ninjaService.listarNinjas();
 }
 
+// Método HTTP : GET
+// URL         : /ninjas/id/1  (exemplo)
+// Busca um ninja pelo ID exato.
+// Optional<Ninja> == pode retornar um Ninja ou vazio — não estoura erro se não achar.
 @GetMapping("/id/{id}")
-public Optional<Ninja> pesquisarNinjas(@PathVariable Long id){
+public Optional<Ninja> pesquisarNinjas(@PathVariable Long id) {
+    // @PathVariable == captura o {id} da URL e joga dentro da variável Long id.
+    // Ex: GET /ninjas/id/3  →  id = 3
     return ninjaService.pesquisarNinjas(id);
 }
 
 
-@GetMapping("/nome/{nome}")
-public Ninja pesquisarNinjasPorNome(@PathVariable String nome){
-    return ninjaService.pesquisarNinjasPorNome(nome);
+// Método HTTP : GET
+// URL         : /ninjas/nomecompleto/Naruto  (exemplo)
+// Busca um ninja pelo nome EXATO — precisa bater certinho.
+@GetMapping("/nomecompleto/{nome}")
+public Ninja pesquisarNinja(@PathVariable String nome) {
+    // @PathVariable == captura o {nome} da URL.
+    // Ex: GET /ninjas/nomecompleto/Naruto  →  nome = "Naruto"
+    // Devolve UM único Ninja (ou null se não achar).
+    return ninjaService.pesquisarNinjaPorNome(nome);
 }
 
+
+// Método HTTP : GET
+// URL         : /ninjas/nome/Na  (exemplo)
+// Busca ninjas que CONTENHAM o trecho no nome — busca parcial.
+@GetMapping("/nome/{nome}")
+public List<Ninja> pesquisarNinjaPorParteDoNome(@PathVariable String nome) {
+    // Ex: GET /ninjas/nome/Na  →  pode retornar [Naruto, Nagato, Nawaki...]
+    // Devolve uma LISTA pois podem existir vários com aquele trecho.
+    return ninjaService.pesquisarNinjaPorParteDoNome(nome);
+}
+
+
+// Método HTTP : PUT
+// URL         : /ninjas/1  (exemplo)
+// PUT == substitui/atualiza um recurso existente. Precisa do ID na URL
+//        e dos novos dados no corpo (JSON).
+@PutMapping("/{id}")
+public Ninja atualizarNinja(@PathVariable Long id, @Valid @RequestBody Ninja ninja) {
+    // @PathVariable  == pega o {id} da URL — identifica QUEM será atualizado.
+    // @RequestBody   == pega o JSON do corpo da requisição — são os NOVOS dados.
+    // @Valid         == ativa as validações anotadas no model Ninja
+    //                   (ex: @NotNull, @Size, @Email...) antes de entrar no método.
+    //                   Se algum campo for inválido, o Spring rejeita antes de chamar a Service.
+    return ninjaService.atualizarNinja(id, ninja);
+}
+
+
+// Método HTTP : DELETE
+// URL         : /ninjas/1  (exemplo)
+// DELETE == remove permanentemente o registro do banco.
+@DeleteMapping("/{id}")
+public void deletarNinja(@PathVariable Long id) {
+    // @PathVariable == pega o {id} da URL — identifica QUEM será deletado.
+    // Sem @RequestBody: DELETE não envia corpo, só o ID na URL basta.
+    // void == não devolve nada ao cliente após deletar.
+    ninjaService.deletarNinja(id);
+}
 
 }
