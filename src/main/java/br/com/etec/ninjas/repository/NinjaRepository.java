@@ -1,7 +1,10 @@
 package br.com.etec.ninjas.repository; //  Indica o pacote onde a interface está localizada
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 //import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.query.JpqlQueryBuilder.Select;
 
 import br.com.etec.ninjas.model.Ninja;
 
@@ -17,5 +20,11 @@ public interface NinjaRepository extends JpaRepository<Ninja, Long> {
     // - findById(Long id) -> Busca um ninja pelo ID
     // - findAll()         -> Lista todos os ninjas
     // - deleteById(Long id)-> Deleta um ninja pelo ID
+
+
+
+    Ninja findByNome (String nome);
+
+    List <Ninja> findByNomeContaining(String nome);
     
 }

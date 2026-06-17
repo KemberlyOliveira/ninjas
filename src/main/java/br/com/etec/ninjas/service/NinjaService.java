@@ -1,6 +1,7 @@
 package br.com.etec.ninjas.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,5 +52,18 @@ public List<Ninja> listarNinjas() {
     //                          Você não precisa escrever SQL — o JPA faz isso por você.
     return ninjaRepository.findAll();
 }
+
+// o Optional faz nn ser obrtgatorio ter um retorno
+// Long id o parametro 
+public Optional<Ninja> pesquisarNinjas(Long id) {
+    return ninjaRepository.findById(id);
+}
+
+
+public Ninja pesquisarNinjasPorNome (String nome){
+    return ninjaRepository.findByNome(nome);
+}
+
+
 
 }
